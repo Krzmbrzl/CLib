@@ -1,0 +1,7 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLib/obj/x64/Release/CLib.csprojAssemblyReference.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLib/obj/x64/Release/CLib.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLib/obj/x64/Release/CLib.csproj.CopyComplete
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLib/obj/x64/Release/CLib_x64.dll
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLib/obj/x64/Release/CLib_x64.pdb
+/Data/home/robert/Documents/Git/CLib/CLib_x64.dll
+/Data/home/robert/Documents/Git/CLib/CLib_x64.pdb

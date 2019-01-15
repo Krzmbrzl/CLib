@@ -1,0 +1,5 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDatabase/obj/x86/Release/CLibDatabase.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDatabase/obj/x86/Release/CLibDatabase.dll
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDatabase/obj/x86/Release/CLibDatabase.pdb
+/Data/home/robert/Documents/Git/CLib/CLibDatabase.dll
+/Data/home/robert/Documents/Git/CLib/CLibDatabase.pdb

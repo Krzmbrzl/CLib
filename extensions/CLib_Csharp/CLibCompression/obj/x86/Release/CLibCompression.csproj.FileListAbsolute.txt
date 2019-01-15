@@ -1,0 +1,6 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibCompression/obj/x86/Release/CLibCompression.csprojAssemblyReference.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibCompression/obj/x86/Release/CLibCompression.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibCompression/obj/x86/Release/CLibCompression.dll
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibCompression/obj/x86/Release/CLibCompression.pdb
+/Data/home/robert/Documents/Git/CLib/CLibCompression.dll
+/Data/home/robert/Documents/Git/CLib/CLibCompression.pdb

@@ -1,0 +1,6 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x86/Release/CLibSocket.csprojAssemblyReference.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x86/Release/CLibSocket.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x86/Release/CLibSocket.dll
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x86/Release/CLibSocket.pdb
+/Data/home/robert/Documents/Git/CLib/CLibSocket.dll
+/Data/home/robert/Documents/Git/CLib/CLibSocket.pdb

@@ -1,0 +1,10 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.csprojAssemblyReference.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.Form1.resources
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.Properties.Resources.resources
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.csproj.GenerateResource.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/CLibDataBaseEditor.exe.config
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.exe
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibDataBaseEditor/obj/Release/CLibDataBaseEditor.pdb
+/Data/home/robert/Documents/Git/CLib/CLibDataBaseEditor.exe
+/Data/home/robert/Documents/Git/CLib/CLibDataBaseEditor.pdb

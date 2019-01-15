@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{4E33037A-E04D-4D10-9CA1-1824EC7BCD1A}|Default">
+  <MonoDevelop.Ide.ItemProperties.CLibDataBaseEditor PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CLib/FunctionLoader.cs">
+    <Files>
+      <File FileName="CLib/Debugger.cs" Line="30" Column="20" />
+      <File FileName="CLib/DllEntry.cs" Line="229" Column="46" />
+      <File FileName="CLib/FunctionLoader.cs" Line="288" Column="16" />
+      <File FileName="CLib/ControlCharacter.cs" Line="10" Column="40" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

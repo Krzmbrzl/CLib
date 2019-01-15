@@ -1,0 +1,6 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibLogging/obj/x86/Release/CLibLogging.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibLogging/obj/x86/Release/CLibLogging.dll
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibLogging/obj/x86/Release/CLibLogging.pdb
+/Data/home/robert/Documents/Git/CLib/CLibLogging.dll
+/Data/home/robert/Documents/Git/CLib/CLibLogging.pdb
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibLogging/obj/x86/Release/CLibLogging.csprojAssemblyReference.cache

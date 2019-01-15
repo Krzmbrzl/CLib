@@ -1,0 +1,6 @@
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x64/Release/CLibSocket.csproj.CoreCompileInputs.cache
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x64/Release/CLibSocket.csproj.CopyComplete
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x64/Release/CLibSocket_x64.dll
+/Data/home/robert/Documents/Git/CLib/extensions/CLib/CLibSocket/obj/x64/Release/CLibSocket_x64.pdb
+/Data/home/robert/Documents/Git/CLib/CLibSocket_x64.dll
+/Data/home/robert/Documents/Git/CLib/CLibSocket_x64.pdb
