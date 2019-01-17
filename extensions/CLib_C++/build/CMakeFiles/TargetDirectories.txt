@@ -1,7 +1,0 @@
-/home/robert/projects/CLib/build/CMakeFiles/install/strip.dir
-/home/robert/projects/CLib/build/CMakeFiles/edit_cache.dir
-/home/robert/projects/CLib/build/CMakeFiles/clib.dir
-/home/robert/projects/CLib/build/CMakeFiles/rebuild_cache.dir
-/home/robert/projects/CLib/build/CMakeFiles/list_install_components.dir
-/home/robert/projects/CLib/build/CMakeFiles/install/local.dir
-/home/robert/projects/CLib/build/CMakeFiles/install.dir

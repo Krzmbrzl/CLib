@@ -57,6 +57,12 @@ extensions/CLib/packages
 *.iml
 *.bikey
 
+# KDevelop files
+.kdev*/
+
+# VSC files
+.vscode
+
 *.bisign
 
 CLibDataBaseEditor\.exe\.config
