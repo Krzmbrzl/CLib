@@ -30,11 +30,5 @@ int main(int argc, char **argv)
 
     std::cout << "----------------------------------------------" << std::endl;
 
-    CLib::ArmaExtension extension = CLib::ArmaExtension("/usr/lib/x86_64-linux-gnu/libdl.so");
-    const char* functionName = "dlopen";
-    std::cout << "Function " << functionName << " exists inside " << extension.getName() << ": " << extension.containsFunction(functionName) << std::endl;
-
-    // extension.call(functionName, "bla");
-
     return 0;
 }

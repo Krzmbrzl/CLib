@@ -59,6 +59,7 @@ extensions/CLib/packages
 
 # KDevelop files
 .kdev*/
+*.kdev*
 
 # VSC files
 .vscode

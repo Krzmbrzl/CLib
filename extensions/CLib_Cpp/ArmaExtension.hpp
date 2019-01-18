@@ -3,7 +3,7 @@
 
 #include <string>
 
-#ifdef _WIN32
+#ifdef WINDOWS
     #include <windows.h>
     typedef HANDLE libraryHandle;
 #else
@@ -12,6 +12,8 @@
 #endif
 
 namespace CLib{
+
+    typedef const char* (*ArmaExtensionFunction)(const char*);
 
     class ArmaExtension {
         private:
@@ -64,6 +66,13 @@ namespace CLib{
          * Checks if this extension is valid
          */
         bool isValid();
+
+        /**
+         * Gets the function pointer to the function with the given name inside this extension.
+         * 
+         * @return The pointer or NULL if no such function could be found
+         */
+        CLib::ArmaExtensionFunction getFunction(std::string name);
     };
 } // namespace CLib
 

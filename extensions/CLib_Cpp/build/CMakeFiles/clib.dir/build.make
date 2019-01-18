@@ -57,131 +57,49 @@ include CMakeFiles/clib.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/clib.dir/flags.make
 
-CMakeFiles/clib.dir/main.cpp.o: CMakeFiles/clib.dir/flags.make
-CMakeFiles/clib.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/clib.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/clib.dir/main.cpp.o -c /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/main.cpp
+CMakeFiles/clib.dir/CLibEntry.cpp.o: CMakeFiles/clib.dir/flags.make
+CMakeFiles/clib.dir/CLibEntry.cpp.o: ../CLibEntry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/clib.dir/CLibEntry.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/clib.dir/CLibEntry.cpp.o -c /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/CLibEntry.cpp
 
-CMakeFiles/clib.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/clib.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/main.cpp > CMakeFiles/clib.dir/main.cpp.i
+CMakeFiles/clib.dir/CLibEntry.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/clib.dir/CLibEntry.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/CLibEntry.cpp > CMakeFiles/clib.dir/CLibEntry.cpp.i
 
-CMakeFiles/clib.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/clib.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/main.cpp -o CMakeFiles/clib.dir/main.cpp.s
+CMakeFiles/clib.dir/CLibEntry.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/clib.dir/CLibEntry.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/CLibEntry.cpp -o CMakeFiles/clib.dir/CLibEntry.cpp.s
 
-CMakeFiles/clib.dir/main.cpp.o.requires:
+CMakeFiles/clib.dir/CLibEntry.cpp.o.requires:
 
-.PHONY : CMakeFiles/clib.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/clib.dir/CLibEntry.cpp.o.requires
 
-CMakeFiles/clib.dir/main.cpp.o.provides: CMakeFiles/clib.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/clib.dir/main.cpp.o.provides
+CMakeFiles/clib.dir/CLibEntry.cpp.o.provides: CMakeFiles/clib.dir/CLibEntry.cpp.o.requires
+	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/CLibEntry.cpp.o.provides.build
+.PHONY : CMakeFiles/clib.dir/CLibEntry.cpp.o.provides
 
-CMakeFiles/clib.dir/main.cpp.o.provides.build: CMakeFiles/clib.dir/main.cpp.o
-
-
-CMakeFiles/clib.dir/Utils.cpp.o: CMakeFiles/clib.dir/flags.make
-CMakeFiles/clib.dir/Utils.cpp.o: ../Utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/clib.dir/Utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/clib.dir/Utils.cpp.o -c /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/Utils.cpp
-
-CMakeFiles/clib.dir/Utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/clib.dir/Utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/Utils.cpp > CMakeFiles/clib.dir/Utils.cpp.i
-
-CMakeFiles/clib.dir/Utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/clib.dir/Utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/Utils.cpp -o CMakeFiles/clib.dir/Utils.cpp.s
-
-CMakeFiles/clib.dir/Utils.cpp.o.requires:
-
-.PHONY : CMakeFiles/clib.dir/Utils.cpp.o.requires
-
-CMakeFiles/clib.dir/Utils.cpp.o.provides: CMakeFiles/clib.dir/Utils.cpp.o.requires
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/Utils.cpp.o.provides.build
-.PHONY : CMakeFiles/clib.dir/Utils.cpp.o.provides
-
-CMakeFiles/clib.dir/Utils.cpp.o.provides.build: CMakeFiles/clib.dir/Utils.cpp.o
-
-
-CMakeFiles/clib.dir/ArmaRequest.cpp.o: CMakeFiles/clib.dir/flags.make
-CMakeFiles/clib.dir/ArmaRequest.cpp.o: ../ArmaRequest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/clib.dir/ArmaRequest.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/clib.dir/ArmaRequest.cpp.o -c /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaRequest.cpp
-
-CMakeFiles/clib.dir/ArmaRequest.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/clib.dir/ArmaRequest.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaRequest.cpp > CMakeFiles/clib.dir/ArmaRequest.cpp.i
-
-CMakeFiles/clib.dir/ArmaRequest.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/clib.dir/ArmaRequest.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaRequest.cpp -o CMakeFiles/clib.dir/ArmaRequest.cpp.s
-
-CMakeFiles/clib.dir/ArmaRequest.cpp.o.requires:
-
-.PHONY : CMakeFiles/clib.dir/ArmaRequest.cpp.o.requires
-
-CMakeFiles/clib.dir/ArmaRequest.cpp.o.provides: CMakeFiles/clib.dir/ArmaRequest.cpp.o.requires
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaRequest.cpp.o.provides.build
-.PHONY : CMakeFiles/clib.dir/ArmaRequest.cpp.o.provides
-
-CMakeFiles/clib.dir/ArmaRequest.cpp.o.provides.build: CMakeFiles/clib.dir/ArmaRequest.cpp.o
-
-
-CMakeFiles/clib.dir/ArmaExtension.cpp.o: CMakeFiles/clib.dir/flags.make
-CMakeFiles/clib.dir/ArmaExtension.cpp.o: ../ArmaExtension.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/clib.dir/ArmaExtension.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/clib.dir/ArmaExtension.cpp.o -c /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaExtension.cpp
-
-CMakeFiles/clib.dir/ArmaExtension.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/clib.dir/ArmaExtension.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaExtension.cpp > CMakeFiles/clib.dir/ArmaExtension.cpp.i
-
-CMakeFiles/clib.dir/ArmaExtension.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/clib.dir/ArmaExtension.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaExtension.cpp -o CMakeFiles/clib.dir/ArmaExtension.cpp.s
-
-CMakeFiles/clib.dir/ArmaExtension.cpp.o.requires:
-
-.PHONY : CMakeFiles/clib.dir/ArmaExtension.cpp.o.requires
-
-CMakeFiles/clib.dir/ArmaExtension.cpp.o.provides: CMakeFiles/clib.dir/ArmaExtension.cpp.o.requires
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaExtension.cpp.o.provides.build
-.PHONY : CMakeFiles/clib.dir/ArmaExtension.cpp.o.provides
-
-CMakeFiles/clib.dir/ArmaExtension.cpp.o.provides.build: CMakeFiles/clib.dir/ArmaExtension.cpp.o
+CMakeFiles/clib.dir/CLibEntry.cpp.o.provides.build: CMakeFiles/clib.dir/CLibEntry.cpp.o
 
 
 # Object files for target clib
 clib_OBJECTS = \
-"CMakeFiles/clib.dir/main.cpp.o" \
-"CMakeFiles/clib.dir/Utils.cpp.o" \
-"CMakeFiles/clib.dir/ArmaRequest.cpp.o" \
-"CMakeFiles/clib.dir/ArmaExtension.cpp.o"
+"CMakeFiles/clib.dir/CLibEntry.cpp.o"
 
 # External object files for target clib
 clib_EXTERNAL_OBJECTS =
 
-clib: CMakeFiles/clib.dir/main.cpp.o
-clib: CMakeFiles/clib.dir/Utils.cpp.o
-clib: CMakeFiles/clib.dir/ArmaRequest.cpp.o
-clib: CMakeFiles/clib.dir/ArmaExtension.cpp.o
-clib: CMakeFiles/clib.dir/build.make
-clib: /usr/lib/x86_64-linux-gnu/libdl.so
-clib: CMakeFiles/clib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable clib"
+libclib.so: CMakeFiles/clib.dir/CLibEntry.cpp.o
+libclib.so: CMakeFiles/clib.dir/build.make
+libclib.so: CMakeFiles/clib.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library libclib.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/clib.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/clib.dir/build: clib
+CMakeFiles/clib.dir/build: libclib.so
 
 .PHONY : CMakeFiles/clib.dir/build
 
-CMakeFiles/clib.dir/requires: CMakeFiles/clib.dir/main.cpp.o.requires
-CMakeFiles/clib.dir/requires: CMakeFiles/clib.dir/Utils.cpp.o.requires
-CMakeFiles/clib.dir/requires: CMakeFiles/clib.dir/ArmaRequest.cpp.o.requires
-CMakeFiles/clib.dir/requires: CMakeFiles/clib.dir/ArmaExtension.cpp.o.requires
+CMakeFiles/clib.dir/requires: CMakeFiles/clib.dir/CLibEntry.cpp.o.requires
 
 .PHONY : CMakeFiles/clib.dir/requires
 

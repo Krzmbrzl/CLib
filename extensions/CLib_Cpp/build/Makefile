@@ -56,29 +56,6 @@ CMAKE_BINARY_DIR = /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/buil
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -90,39 +67,16 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : list_install_components/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -157,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named main
+
+# Build rule for target.
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+#=============================================================================
 # Target rules for targets named clib
 
 # Build rule for target.
@@ -175,7 +142,7 @@ ArmaExtension.o: ArmaExtension.cpp.o
 
 # target to build an object file
 ArmaExtension.cpp.o:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaExtension.cpp.o
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/ArmaExtension.cpp.o
 .PHONY : ArmaExtension.cpp.o
 
 ArmaExtension.i: ArmaExtension.cpp.i
@@ -184,7 +151,7 @@ ArmaExtension.i: ArmaExtension.cpp.i
 
 # target to preprocess a source file
 ArmaExtension.cpp.i:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaExtension.cpp.i
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/ArmaExtension.cpp.i
 .PHONY : ArmaExtension.cpp.i
 
 ArmaExtension.s: ArmaExtension.cpp.s
@@ -193,7 +160,7 @@ ArmaExtension.s: ArmaExtension.cpp.s
 
 # target to generate assembly for a file
 ArmaExtension.cpp.s:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaExtension.cpp.s
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/ArmaExtension.cpp.s
 .PHONY : ArmaExtension.cpp.s
 
 ArmaRequest.o: ArmaRequest.cpp.o
@@ -202,7 +169,7 @@ ArmaRequest.o: ArmaRequest.cpp.o
 
 # target to build an object file
 ArmaRequest.cpp.o:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaRequest.cpp.o
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/ArmaRequest.cpp.o
 .PHONY : ArmaRequest.cpp.o
 
 ArmaRequest.i: ArmaRequest.cpp.i
@@ -211,7 +178,7 @@ ArmaRequest.i: ArmaRequest.cpp.i
 
 # target to preprocess a source file
 ArmaRequest.cpp.i:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaRequest.cpp.i
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/ArmaRequest.cpp.i
 .PHONY : ArmaRequest.cpp.i
 
 ArmaRequest.s: ArmaRequest.cpp.s
@@ -220,8 +187,35 @@ ArmaRequest.s: ArmaRequest.cpp.s
 
 # target to generate assembly for a file
 ArmaRequest.cpp.s:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/ArmaRequest.cpp.s
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/ArmaRequest.cpp.s
 .PHONY : ArmaRequest.cpp.s
+
+CLibEntry.o: CLibEntry.cpp.o
+
+.PHONY : CLibEntry.o
+
+# target to build an object file
+CLibEntry.cpp.o:
+	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/CLibEntry.cpp.o
+.PHONY : CLibEntry.cpp.o
+
+CLibEntry.i: CLibEntry.cpp.i
+
+.PHONY : CLibEntry.i
+
+# target to preprocess a source file
+CLibEntry.cpp.i:
+	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/CLibEntry.cpp.i
+.PHONY : CLibEntry.cpp.i
+
+CLibEntry.s: CLibEntry.cpp.s
+
+.PHONY : CLibEntry.s
+
+# target to generate assembly for a file
+CLibEntry.cpp.s:
+	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/CLibEntry.cpp.s
+.PHONY : CLibEntry.cpp.s
 
 Utils.o: Utils.cpp.o
 
@@ -229,7 +223,7 @@ Utils.o: Utils.cpp.o
 
 # target to build an object file
 Utils.cpp.o:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/Utils.cpp.o
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Utils.cpp.o
 .PHONY : Utils.cpp.o
 
 Utils.i: Utils.cpp.i
@@ -238,7 +232,7 @@ Utils.i: Utils.cpp.i
 
 # target to preprocess a source file
 Utils.cpp.i:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/Utils.cpp.i
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Utils.cpp.i
 .PHONY : Utils.cpp.i
 
 Utils.s: Utils.cpp.s
@@ -247,7 +241,7 @@ Utils.s: Utils.cpp.s
 
 # target to generate assembly for a file
 Utils.cpp.s:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/Utils.cpp.s
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Utils.cpp.s
 .PHONY : Utils.cpp.s
 
 main.o: main.cpp.o
@@ -256,7 +250,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -265,7 +259,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -274,7 +268,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/clib.dir/build.make CMakeFiles/clib.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -283,19 +277,19 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
-	@echo "... edit_cache"
-	@echo "... clib"
 	@echo "... rebuild_cache"
-	@echo "... list_install_components"
-	@echo "... install/local"
-	@echo "... install"
+	@echo "... edit_cache"
+	@echo "... main"
+	@echo "... clib"
 	@echo "... ArmaExtension.o"
 	@echo "... ArmaExtension.i"
 	@echo "... ArmaExtension.s"
 	@echo "... ArmaRequest.o"
 	@echo "... ArmaRequest.i"
 	@echo "... ArmaRequest.s"
+	@echo "... CLibEntry.o"
+	@echo "... CLibEntry.i"
+	@echo "... CLibEntry.s"
 	@echo "... Utils.o"
 	@echo "... Utils.i"
 	@echo "... Utils.s"

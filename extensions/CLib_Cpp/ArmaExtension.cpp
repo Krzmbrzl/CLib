@@ -5,27 +5,35 @@
 
 namespace CLib {
     libraryHandle loadExtension(const char* extensionPath) {
-# ifdef _WIN32
+# ifdef WINDOWS
         return ::LoadLibraryA(extensionPath);
-# else //_WIN32
+# else //WINDOWS
         return ::dlopen(extensionPath, RTLD_LAZY);
-# endif //_WIN32
+# endif //WINDOWS
     }
 
     int unloadExtension(libraryHandle hMyLib) {
-# ifdef _WIN32
+# ifdef WINDOWS
         return ::FreeLibrary(hMyLib);
-# else //_WIN32
+# else //WINDOWS
         return ::dlclose(hMyLib);
-# endif //_WIN32
+# endif //WINDOWS
     }
 
     void* getFunctionPointer(libraryHandle hMyLib, const char* szMyProc) {
-# ifdef _WIN32
+# ifdef WINDOWS
         return ::GetProcAddress(hMyLib, szMyProc);
-# else //_WIN32
+# else //WINDOWS
         return ::dlsym(hMyLib, szMyProc);
-# endif //_WIN32
+# endif //WINDOWS
+    }
+
+    char * getError() {
+        #ifdef WINDOWS
+
+        #else
+            return dlerror();
+        #endif
     }
 
 
@@ -33,10 +41,10 @@ namespace CLib {
         extension = loadExtension(path.c_str());
 
         if(!extension){
-            throw std::invalid_argument("Unable to load extension " + path);
+            throw std::invalid_argument("Unable to load extension " + path + "\n" + "Reason: " + getError());
         }
 
-        #ifdef _WIN32
+        #ifdef WINDOWS
             char sep = '\\';
         #else
             char sep = '/';
@@ -59,8 +67,6 @@ namespace CLib {
             throw std::invalid_argument("Unable to find a function with the name '" + functionName + "' in " + CLib::ArmaExtension::path + "!");
         }
 
-        typedef const char* (*ArmaExtensionFunction)(const char*);
-
         ArmaExtensionFunction func = (ArmaExtensionFunction) ptr;
 
         std::string returnValue = func(parameter.c_str());
@@ -82,5 +88,9 @@ namespace CLib {
 
     bool CLib::ArmaExtension::isValid() {
         return extension;
+    }
+
+    CLib::ArmaExtensionFunction CLib::ArmaExtension::getFunction(std::string name) {
+        return (ArmaExtensionFunction) getFunctionPointer(extension, name.c_str());
     }
 } // namespace CLib

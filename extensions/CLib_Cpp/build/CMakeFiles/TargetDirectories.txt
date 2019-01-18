@@ -1,7 +1,4 @@
-/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/install/strip.dir
-/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/edit_cache.dir
-/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/clib.dir
 /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/rebuild_cache.dir
-/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/list_install_components.dir
-/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/install/local.dir
-/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/install.dir
+/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/edit_cache.dir
+/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/main.dir
+/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/CMakeFiles/clib.dir
