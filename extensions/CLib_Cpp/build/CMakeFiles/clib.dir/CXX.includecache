@@ -45,7 +45,21 @@ exception
 -
 algorithm
 -
+fstream
+-
+sstream
+-
+regex
+-
 shlwapi.h
+-
+WinBase.h
+-
+direct.h
+-
+sys/types.h
+-
+unistd.h
 -
 ControlCharacter.hpp
 /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ControlCharacter.hpp
@@ -53,6 +67,8 @@ ArmaRequest.hpp
 /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaRequest.hpp
 ArmaExtension.hpp
 /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ArmaExtension.hpp
+Utils.hpp
+/Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/Utils.hpp
 
 /Data/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/ControlCharacter.hpp
 

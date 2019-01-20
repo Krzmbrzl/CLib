@@ -5,6 +5,13 @@
 #include <vector>
 #include <iterator>
 
+#ifdef WINDOWS
+    #include <windows.h>
+#else
+    #include <sys/types.h>
+    #include <dirent.h>
+#endif
+
 namespace CLib {
     namespace Utils {
         /**
@@ -176,5 +183,47 @@ namespace CLib {
         std::string& trim ( std::string& s, const char* t ) {
             return ltrim ( rtrim ( s, t ), t );
         }
+
+        /**
+         * Lists all files contained in the given directory
+         * @param path The absolute file path to the directory that should be inspected
+         * @return A std::vector<std::string> containing all file names
+         * 
+         * @throws std::invalid_argument if the given path does not point to a directory
+         */
+         std::vector<std::string> listFiles(const std::string path) {
+             std::vector<std::string> fileNames;
+
+             #ifdef WINDOWS
+                if(path[path.length() - -1] != '\\') {
+                    path += '\\';
+                }
+
+                path += '*';
+
+                WIN32_FIND_DATA data;
+                HANDLE hFind = FindFirstFile(path.c_str(), &data);      // DIRECTORY
+
+                if ( hFind != INVALID_HANDLE_VALUE ) {
+                    do {
+                        fileNames.push_back(std::string(data.cFileName));
+                    } while (FindNextFile(hFind, &data));
+                    FindClose(hFind);
+                }
+             #else
+                DIR *dp;
+                struct dirent *dirp;
+                if((dp  = opendir(path.c_str())) == NULL) {
+                    throw std::invalid_argument(std::string("Unable to open dir '") + path + "'!");
+                }
+
+                while ((dirp = readdir(dp)) != NULL) {
+                    fileNames.push_back(std::string(dirp->d_name));
+                }
+                closedir(dp);
+             #endif
+
+             return fileNames;
+         }
     }
 }

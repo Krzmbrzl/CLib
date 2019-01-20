@@ -12,9 +12,5 @@ CMakeFiles/main.dir/ArmaRequest.cpp.o: ../Utils.hpp
 CMakeFiles/main.dir/Utils.cpp.o: ../Utils.cpp
 CMakeFiles/main.dir/Utils.cpp.o: ../Utils.hpp
 
-CMakeFiles/main.dir/main.cpp.o: ../ArmaExtension.hpp
-CMakeFiles/main.dir/main.cpp.o: ../ArmaRequest.hpp
-CMakeFiles/main.dir/main.cpp.o: ../ControlCharacter.hpp
-CMakeFiles/main.dir/main.cpp.o: ../Utils.hpp
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 

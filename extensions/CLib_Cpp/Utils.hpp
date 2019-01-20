@@ -109,6 +109,15 @@ namespace CLib {
          * @return The trimmed string
          */
         std::string& trim ( std::string& s, const char* t = ws );
+
+        /**
+         * Lists all files contained in the given directory
+         * @param path The absolute file path to the directory that should be inspected
+         * @return A std::vector<std::string> containing all file names
+         * 
+         * @throws std::invalid_argument if the given path does not point to a directory
+         */
+        std::vector<std::string> listFiles(const std::string path);
     }
 }
 

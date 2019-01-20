@@ -1,34 +1,31 @@
 #include <iostream>
-#include "Utils.hpp"
-#include "ArmaRequest.hpp"
-#include "ControlCharacter.hpp"
-#include "ArmaExtension.hpp"
+#include <string>
+#include <dlfcn.h>
+typedef void* libraryHandle;
 
 int main(int argc, char **argv)
 {
-    std::string test = " I am a completely new test String ";
-    std::vector<std::string> elements = CLib::Utils::split(CLib::Utils::trim(test), ' ');
+    libraryHandle handle = ::dlopen("/home/robert/Documents/Git/CLib/extensions/CLib_Cpp/build/libclib.so", RTLD_LAZY);
 
-    for (int i = 0; i < elements.size(); i++)
-    {
-        std::cout << "|" << elements.at(i) << "|" << std::endl;
+    std::cout << ::dlerror() << std::endl;
+
+    void* funcPtr = ::dlsym(handle, "RVExtension");
+    
+    if(funcPtr == 0) {
+        std::cout << "Unable to open function" << std::endl;
+    } else {
+        typedef void(*Function)(char *, int, const char *);
+
+        Function func = (Function) funcPtr;
+
+        char response[120];
+
+        func(response, 120, "Hello");
     }
 
-    std::cout << "----------------------------------------------" << std::endl;
-    std::string requestString;
-    requestString += CLib::ControlCharacter::SOH;
-    requestString += "2";
-    requestString += CLib::ControlCharacter::US;
-    requestString += "MyTextExtension";
-    requestString += CLib::ControlCharacter::US;
-    requestString += "MySampleAction";
-    requestString += CLib::ControlCharacter::STX;
-    requestString += "Some text here";
-    requestString += CLib::ControlCharacter::ETX;
-
-    CLib::ArmaRequest request = CLib::ArmaRequest::parse(requestString);
-
-    std::cout << "----------------------------------------------" << std::endl;
+    if(handle != 0) {
+        ::dlclose(handle);
+    }
 
     return 0;
 }

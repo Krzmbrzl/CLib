@@ -8,14 +8,24 @@
 #include <future>
 #include <exception>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <regex>
 
 #ifdef WINDOWS
     #include <shlwapi.h> // requires Shlwapi.lib / Shlwapi.dll (version 4.71 or later)
+    #include <WinBase.h> // requires Kernel32.lib - on windows 8+: #include <Processenv.h>
+    #include <direct.h>
+    #define getcwd _getcwd
+#else
+    #include <sys/types.h>
+    #include <unistd.h>
 #endif
 
 #include "ControlCharacter.hpp"
 #include "ArmaRequest.hpp"
 #include "ArmaExtension.hpp"
+#include "Utils.hpp"
 
 /**
  * Executes the given ArmaRequest by scheduling it to be run in a separate thread
@@ -29,6 +39,11 @@ const char* executeRequest(CLib::ArmaRequest request);
  * @param path The std::string "path" to check
  */
 bool isAbsolutePath(const std::string& path);
+/**
+ * A utility function that detects all extensions available for the running Arma process.
+ * It will populete the availableExtensions member
+ */
+void detectExtensions();
 
 // variable definitions
 static std::string inputBuffer;
@@ -45,6 +60,13 @@ void RVExtensionVersion(char *output, int outputSize)
 
 void RVExtension(char *armaOutput, int outputSize, const char *in)
 {
+    static bool initialized = false;
+
+    if(!initialized) {
+        detectExtensions();
+        initialized = true;
+    }
+
     int maxOutputSize = outputSize - 1;
     
 	std::string input = in;
@@ -236,4 +258,129 @@ int RVExtensionArgs(char *output, int outputSize, const char *function, const ch
 	}
 	std::strncpy(output, sstream.str().c_str(), outputSize - 1);
 	return 0;
+}
+
+#ifdef WINDOWS
+    #define FILE_SEP '\\'
+#else
+    #define FILE_SEP '/'
+#endif
+
+void detectExtensions() {
+    // get command line arguments
+    #ifdef WINDOWS
+        std::string commandLineArgs = ::GetCommandLine();
+    #else
+        long pid = ::getpid();
+        std::ifstream inFile;
+        inFile.open(std::string("/proc/") + std::to_string(pid) + "/cmdline");
+
+        std::stringstream sstr;
+        sstr << inFile.rdbuf();
+        std::string commandLineArgs = sstr.str();
+    #endif
+
+    char buffer[1024];
+    char *answer = getcwd(buffer, sizeof(buffer));
+    std::string cwd;
+    if (answer)
+    {
+      cwd = answer;
+    } else {
+        throw std::invalid_argument("Unable to get the cwd of this process!");
+    }
+
+    if(cwd.empty()) {
+        throw std::invalid_argument("Retrieved cwd is empty!");
+    }
+
+    if(cwd[cwd.length() - 1] != FILE_SEP) {
+        cwd += FILE_SEP;
+    }
+
+    // TODO: Debugger.Log($"Current directory is: {Environment.CurrentDirectory}");
+    // TODO: Debugger.Log("Extensions Found:");
+
+    // find mod-start-parameter
+    std::regex modParamEx("-(server)?mod=");
+    std::sregex_iterator mods_begin = std::sregex_iterator(commandLineArgs.begin(), commandLineArgs.end(), modParamEx);
+    std::sregex_iterator mods_end = std::sregex_iterator();
+ 
+    for (std::sregex_iterator i = mods_begin; i != mods_end; ++i) {
+        std::smatch match = *i;              
+        int currentIndex = match.position();                                  
+        
+        // skip until = is found
+        while(commandLineArgs[currentIndex] != '=') {
+            currentIndex++;
+        }
+        // skip the = itself as well
+        currentIndex++;
+
+        // check if there are multiple mods wrapped in quotes
+        int endIndex;
+        char nextChar = commandLineArgs[currentIndex];
+        if(nextChar == '"' || nextChar == '\'') {
+            currentIndex++;
+            endIndex = commandLineArgs.find(nextChar, currentIndex);
+        } else {
+            endIndex = commandLineArgs.find(' ', currentIndex);
+            if(endIndex == std::string::npos) {
+                // wasn't found
+                endIndex = commandLineArgs.length();
+            }
+        }
+
+        std::string modList = commandLineArgs.substr(currentIndex, endIndex);
+
+        for(std::string currentModPath : CLib::Utils::split(modList, ';')) {
+            if(!isAbsolutePath(currentModPath)) {
+                // make absolute
+                currentModPath = cwd + currentModPath;
+            }
+
+            if(currentModPath[currentModPath.length() - 1] != FILE_SEP) {
+                currentModPath += FILE_SEP;
+            }
+
+            for(const std::string currentFile : CLib::Utils::listFiles(currentModPath)) {
+                #ifdef WINDOWS
+                    #ifdef CLIB64
+                        std::string fileExtension = "_x64.dll";
+                    #else
+                        std::string fileExtension = ".dll";
+                    #endif
+                #else
+                    std::string fileExtension = ".so";
+                #endif
+
+                if (currentFile.length() > fileExtension.length() 
+                    && currentFile.substr(currentFile.length() - fileExtension.length(), currentFile.length()) == fileExtension) {
+                    // this appears to be a proper library
+                    try {
+                        std::string absFilePath = currentModPath + currentFile;
+
+                        CLib::ArmaExtension extension(absFilePath);
+
+                        #ifdef WINDOWS
+                            #ifdef CLIB64
+                                std::string entryPoint = "RVExtension";
+                            #else
+                                std::string entryPoint = "_RVExtension@12";
+                            #endif
+                        #else
+                            std::string entryPoint = "RVExtension";
+                        #endif
+
+                        if(extension.containsFunction(entryPoint)) {
+                            // This appears to be a proper extension => add to list
+                            availableExtensions[currentFile.substr(0, currentFile.length() - fileExtension.length())] = absFilePath;
+                        }
+                    } catch (const std::invalid_argument& e) {
+                        // ignore and don't add to list
+                    }
+                }
+            }
+        }
+    }  
 }

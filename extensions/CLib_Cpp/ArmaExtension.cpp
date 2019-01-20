@@ -30,7 +30,7 @@ namespace CLib {
 
     char * getError() {
         #ifdef WINDOWS
-
+            return GetLastError();
         #else
             return dlerror();
         #endif
