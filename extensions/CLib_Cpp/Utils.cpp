@@ -54,7 +54,7 @@ namespace CLib {
                     count--;
 
                     if ( count == 1 ) {
-                        output.push_back ( inputString.substr ( i + 1, inputString.length() ) );
+                        output.push_back ( inputString.substr ( i + 1) );
                         return;
                     }
                 }

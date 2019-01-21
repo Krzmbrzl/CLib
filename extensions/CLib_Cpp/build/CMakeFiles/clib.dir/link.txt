@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -g -m32 -shared -Wl,-soname,libclib.so -o libclib.so CMakeFiles/clib.dir/CLibEntry.cpp.o 

@@ -1,5 +1,7 @@
 #include "DllEntry.hpp"
 
+#include <iostream>
+
 #include <string>
 #include <cstring>
 #include <sstream>
@@ -278,6 +280,9 @@ void detectExtensions() {
         std::stringstream sstr;
         sstr << inFile.rdbuf();
         std::string commandLineArgs = sstr.str();
+
+        // replace NUL-separators by spaces
+        std::replace(commandLineArgs.begin(), commandLineArgs.end(), '\0', ' ');
     #endif
 
     char buffer[1024];
@@ -331,7 +336,7 @@ void detectExtensions() {
             }
         }
 
-        std::string modList = commandLineArgs.substr(currentIndex, endIndex);
+        std::string modList = commandLineArgs.substr(currentIndex, endIndex - currentIndex);
 
         for(std::string currentModPath : CLib::Utils::split(modList, ';')) {
             if(!isAbsolutePath(currentModPath)) {
@@ -355,7 +360,7 @@ void detectExtensions() {
                 #endif
 
                 if (currentFile.length() > fileExtension.length() 
-                    && currentFile.substr(currentFile.length() - fileExtension.length(), currentFile.length()) == fileExtension) {
+                    && currentFile.substr(currentFile.length() - fileExtension.length(), fileExtension.length()) == fileExtension) {
                     // this appears to be a proper library
                     try {
                         std::string absFilePath = currentModPath + currentFile;

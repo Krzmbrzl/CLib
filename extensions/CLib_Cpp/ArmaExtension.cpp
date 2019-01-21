@@ -53,7 +53,7 @@ namespace CLib {
         CLib::ArmaExtension::path = path;
         int index = path.find_last_of(sep);
 
-        CLib::ArmaExtension::name = (index < 0 ? path : path.substr(index + 1, path.length()));
+        CLib::ArmaExtension::name = (index < 0 ? path : path.substr(index + 1));
     }
 
     CLib::ArmaExtension::~ArmaExtension() {

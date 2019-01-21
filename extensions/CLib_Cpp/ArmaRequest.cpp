@@ -43,7 +43,7 @@ namespace CLib {
 			throw std::invalid_argument("ETX-symbol before STX!");
 		}
 
-		std::string header = input.substr(headerStart < 0 ? 0 : headerStart + 1, (textStart < 0 ? input.length() : textStart) - 1);
+		std::string header = input.substr(headerStart < 0 ? 0 : headerStart + 1, (textStart < 0 ? std::string::npos : textStart - headerStart - 1));
 		std::vector<std::string> headerValues = CLib::Utils::split(header, ControlCharacter::US, 3);
 
 		if(headerValues.size() < 3) {

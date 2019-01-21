@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   -ldl -rdynamic -m32 CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/Utils.cpp.o CMakeFiles/main.dir/ArmaRequest.cpp.o CMakeFiles/main.dir/ArmaExtension.cpp.o  -o main -ldl -lpthread 
