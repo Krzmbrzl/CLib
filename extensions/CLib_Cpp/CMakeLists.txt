@@ -4,9 +4,10 @@ project(clib)
 
 option(Build64 "Whether to build the 64bit binaries instead of the 32bit ones" OFF)
 
+set(SHARED_SOURCES Utils.cpp)
 
-add_executable(main main.cpp Utils.cpp ArmaRequest.cpp ArmaExtension.cpp)
-add_library(clib SHARED CLibEntry.cpp)
+add_executable(main main.cpp)
+add_library(clib SHARED CLibEntry.cpp ArmaExtension.cpp ArmaRequest.cpp ${SHARED_SOURCES})
 
 set_target_properties(clib PROPERTIES PUBLIC_HEADER DllEntry.hpp)
 
