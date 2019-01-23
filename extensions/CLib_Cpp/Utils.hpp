@@ -6,6 +6,12 @@
 #include <vector>
 #include <iterator>
 
+#ifdef WINDOWS
+    #define FILE_SEP '\\'
+#else
+    #define FILE_SEP '/'
+#endif
+
 namespace CLib {
     namespace Utils {
         /**
@@ -118,6 +124,29 @@ namespace CLib {
          * @throws std::invalid_argument if the given path does not point to a directory
          */
         std::vector<std::string> listFiles(const std::string path);
+
+        /**
+         * Gets the current working directory of this process
+         * @param bufSize The maximum size of the CWD-buffer
+         * 
+         * @return The respective CWD or an empty string if something went wrong
+         */
+        std::string getCWD(int bufSize=1024);
+
+        /**
+         * Gets the directory in which the executable of this process is located
+         * @param bufSize (otpional) The size of the path-buffer to use
+         * 
+         * @return The path to the respective directory or an empty string if something went wrong
+         */
+        std::string getExecutableDirectory(int bufSize=1024);
+
+        /**
+         * Gets all segments of the command line that has been used to call this process
+         * 
+         * @return A std::vector<std::string> containing the respective segments or an empty one of something went wrong
+         */
+        std::vector<std::string> getCommandLineSegments();
     }
 }
 

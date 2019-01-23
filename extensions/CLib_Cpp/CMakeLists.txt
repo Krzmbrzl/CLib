@@ -4,7 +4,7 @@ project(clib)
 
 option(Build64 "Whether to build the 64bit binaries instead of the 32bit ones" OFF)
 
-set(SHARED_SOURCES Utils.cpp)
+set(SHARED_SOURCES Utils.cpp Logger.cpp)
 
 add_executable(main main.cpp)
 add_library(clib SHARED CLibEntry.cpp ArmaExtension.cpp ArmaRequest.cpp ${SHARED_SOURCES})

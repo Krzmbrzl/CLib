@@ -3,3 +3,6 @@ CMakeFiles/
 *.cmake
 CMakeCache.txt
 Makefile
+
+# ignore log files
+*.log

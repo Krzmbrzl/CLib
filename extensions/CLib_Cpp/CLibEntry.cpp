@@ -1,33 +1,24 @@
 #include "DllEntry.hpp"
 
-#include <iostream>
-
 #include <string>
 #include <cstring>
-#include <sstream>
 #include <map>
 #include <thread>
 #include <future>
 #include <exception>
 #include <algorithm>
-#include <fstream>
-#include <sstream>
-#include <regex>
 
 #ifdef WINDOWS
     #include <shlwapi.h> // requires Shlwapi.lib / Shlwapi.dll (version 4.71 or later)
     #include <WinBase.h> // requires Kernel32.lib - on windows 8+: #include <Processenv.h>
-    #include <direct.h>
-    #define getcwd _getcwd
 #else
-    #include <sys/types.h>
-    #include <unistd.h>
 #endif
 
 #include "ControlCharacter.hpp"
 #include "ArmaRequest.hpp"
 #include "ArmaExtension.hpp"
 #include "Utils.hpp"
+#include "Logger.hpp"
 
 /**
  * Executes the given ArmaRequest by scheduling it to be run in a separate thread
@@ -53,11 +44,9 @@ static std::string outputBuffer;
 static std::map<std::string, std::string> availableExtensions;
 static std::map<int, std::future<const char *>> tasks;
 
-static std::string version = std::string("CLib v") + std::string(CLIB_VERSION);
-
 void RVExtensionVersion(char *output, int outputSize)
 {
-	std::strncpy(output, version.c_str(), outputSize - 1);
+	std::strncpy(output, CLIB_VERSION, outputSize - 1);
 }
 
 void RVExtension(char *armaOutput, int outputSize, const char *in)
@@ -65,7 +54,19 @@ void RVExtension(char *armaOutput, int outputSize, const char *in)
     static bool initialized = false;
 
     if(!initialized) {
-        detectExtensions();
+        try {
+            CLib::Logger::getInstance().info("Starting Extension detection");
+
+            detectExtensions();
+            
+            CLib::Logger::getInstance().info("Finished Extension detection");
+        } catch (const std::exception& e) {
+            std::string msg("Error during extension detection: ");
+            msg += e.what();
+
+            std::strncpy(armaOutput, msg.c_str(), outputSize - 1);
+            return;
+        }
         initialized = true;
     }
 
@@ -85,7 +86,8 @@ void RVExtension(char *armaOutput, int outputSize, const char *in)
     } 
     else if (input == "version")
     {
-        output += version;
+        output += "CLib v";
+        output += CLIB_VERSION;
     } else {
         char first = input.at(0);
 
@@ -251,141 +253,127 @@ const char* executeRequest(CLib::ArmaRequest request) {
     return std::string(1, CLib::ControlCharacter::ACK).c_str();
 }
 
-int RVExtensionArgs(char *output, int outputSize, const char *function, const char **argv, int argc)
-{
-	std::stringstream sstream;
-	for (int i = 0; i < argc; i++)
-	{
-		sstream << argv[i];
-	}
-	std::strncpy(output, sstream.str().c_str(), outputSize - 1);
-	return 0;
-}
-
-#ifdef WINDOWS
-    #define FILE_SEP '\\'
-#else
-    #define FILE_SEP '/'
-#endif
-
 void detectExtensions() {
     // get command line arguments
-    #ifdef WINDOWS
-        std::string commandLineArgs = ::GetCommandLine();
-    #else
-        long pid = ::getpid();
-        std::ifstream inFile;
-        inFile.open(std::string("/proc/") + std::to_string(pid) + "/cmdline");
+    std::vector<std::string> commandLineArgs = CLib::Utils::getCommandLineSegments();
 
-        std::stringstream sstr;
-        sstr << inFile.rdbuf();
-        std::string commandLineArgs = sstr.str();
+    std::string mainDir = CLib::Utils::getExecutableDirectory();
 
-        // replace NUL-separators by spaces
-        std::replace(commandLineArgs.begin(), commandLineArgs.end(), '\0', ' ');
-    #endif
-
-    char buffer[1024];
-    char *answer = getcwd(buffer, sizeof(buffer));
-    std::string cwd;
-    if (answer)
-    {
-      cwd = answer;
-    } else {
-        throw std::invalid_argument("Unable to get the cwd of this process!");
+    if(mainDir.empty()) {
+        throw std::invalid_argument("Retrieved mainDir is empty!");
     }
 
-    if(cwd.empty()) {
-        throw std::invalid_argument("Retrieved cwd is empty!");
+    CLib::Logger::getInstance().info(std::string("Current directory is: ") + mainDir);
+
+    if(mainDir[mainDir.length() - 1] != FILE_SEP) {
+        mainDir += FILE_SEP;
     }
 
-    if(cwd[cwd.length() - 1] != FILE_SEP) {
-        cwd += FILE_SEP;
-    }
 
-    // TODO: Debugger.Log($"Current directory is: {Environment.CurrentDirectory}");
-    // TODO: Debugger.Log("Extensions Found:");
-
-    // find mod-start-parameter
-    std::regex modParamEx("-(server)?mod=");
-    std::sregex_iterator mods_begin = std::sregex_iterator(commandLineArgs.begin(), commandLineArgs.end(), modParamEx);
-    std::sregex_iterator mods_end = std::sregex_iterator();
- 
-    for (std::sregex_iterator i = mods_begin; i != mods_end; ++i) {
-        std::smatch match = *i;              
-        int currentIndex = match.position();                                  
+    // iterate over commandLineArgs
+    for(std::string currentParam : commandLineArgs) {
+        if(currentParam.length() <=2 || currentParam[0] != '-') {
+            continue;
+        }
+        int equalPos = currentParam.find('=');
+        if(equalPos == std::string::npos) {
+            continue;
+        }
+        std::string paramName = currentParam.substr(1,equalPos - 1);
         
-        // skip until = is found
-        while(commandLineArgs[currentIndex] != '=') {
-            currentIndex++;
-        }
-        // skip the = itself as well
-        currentIndex++;
+        // compare paramName case-insensitive
+        std::transform(paramName.begin(), paramName.end(), paramName.begin(), ::tolower);
 
-        // check if there are multiple mods wrapped in quotes
-        int endIndex;
-        char nextChar = commandLineArgs[currentIndex];
-        if(nextChar == '"' || nextChar == '\'') {
-            currentIndex++;
-            endIndex = commandLineArgs.find(nextChar, currentIndex);
+        if(paramName == "mod" || paramName == "servermod") {
+            currentParam = currentParam.substr(paramName.length() + 2);
         } else {
-            endIndex = commandLineArgs.find(' ', currentIndex);
-            if(endIndex == std::string::npos) {
-                // wasn't found
-                endIndex = commandLineArgs.length();
-            }
+            continue;
         }
 
-        std::string modList = commandLineArgs.substr(currentIndex, endIndex - currentIndex);
+        // Process mod-specification
 
-        for(std::string currentModPath : CLib::Utils::split(modList, ';')) {
+        if(currentParam.empty()) {
+            // something's worong
+            continue;
+        }
+
+        // strip potential quotes
+        if (currentParam[0] == '"' || currentParam[0] == '\'') {
+            currentParam = currentParam.substr(1,currentParam.length() - 2);
+        }
+
+        // currentParam contains the mod-list only
+        std::vector<std::string> modList = CLib::Utils::split(currentParam, ';');
+
+        for(std::string currentModPath : modList) {
             if(!isAbsolutePath(currentModPath)) {
-                // make absolute
-                currentModPath = cwd + currentModPath;
+                currentModPath = mainDir + currentModPath;
             }
 
+            // make sur it has a trailing file separator so it will be recognized as a directory
             if(currentModPath[currentModPath.length() - 1] != FILE_SEP) {
                 currentModPath += FILE_SEP;
             }
 
-            for(const std::string currentFile : CLib::Utils::listFiles(currentModPath)) {
-                #ifdef WINDOWS
-                    #ifdef CLIB64
-                        std::string fileExtension = "_x64.dll";
-                    #else
-                        std::string fileExtension = ".dll";
-                    #endif
-                #else
-                    std::string fileExtension = ".so";
-                #endif
+            CLib::Logger::getInstance().info(std::string("Loaded mod: ") + currentModPath);
 
-                if (currentFile.length() > fileExtension.length() 
-                    && currentFile.substr(currentFile.length() - fileExtension.length(), fileExtension.length()) == fileExtension) {
-                    // this appears to be a proper library
-                    try {
-                        std::string absFilePath = currentModPath + currentFile;
-
-                        CLib::ArmaExtension extension(absFilePath);
-
-                        #ifdef WINDOWS
-                            #ifdef CLIB64
-                                std::string entryPoint = "RVExtension";
-                            #else
-                                std::string entryPoint = "_RVExtension@12";
-                            #endif
+            try {
+                for(const std::string currentFile : CLib::Utils::listFiles(currentModPath)) {
+                    #ifdef WINDOWS
+                        #ifdef CLIB64
+                            #define LIB_EXTENSION "_x64.dll"
+                            #define LIB_EXTENSION_LENGTH 8
                         #else
-                            std::string entryPoint = "RVExtension";
+                            #define LIB_EXTENSION ".dll"
+                            #define LIB_EXTENSION_LENGTH 4
                         #endif
+                    #else
+                        #define LIB_EXTENSION ".so"
+                        #define LIB_EXTENSION_LENGTH 3
+                    #endif
 
-                        if(extension.containsFunction(entryPoint)) {
-                            // This appears to be a proper extension => add to list
-                            availableExtensions[currentFile.substr(0, currentFile.length() - fileExtension.length())] = absFilePath;
+                    // check if file has proper extension
+                    if (currentFile.length() > LIB_EXTENSION_LENGTH 
+                        && currentFile.substr(currentFile.length() - LIB_EXTENSION_LENGTH) == LIB_EXTENSION) {
+                        // this appears to be a proper library
+                        try {
+                            std::string absFilePath = currentModPath + currentFile;
+
+                            CLib::ArmaExtension extension(absFilePath);
+
+                            #ifdef WINDOWS
+                                #ifdef CLIB64
+                                    std::string entryPoint = "RVExtension";
+                                #else
+                                    std::string entryPoint = "_RVExtension@12";
+                                #endif
+                            #else
+                                std::string entryPoint = "RVExtension";
+                            #endif
+
+                            if(extension.containsFunction(entryPoint)) {
+                                // This appears to be a proper extension => add to list
+                                std::string extName = currentFile.substr(0, currentFile.length() - LIB_EXTENSION_LENGTH);
+
+                                CLib::Logger::getInstance().info(std::string(std::string("Adding extension: ") + absFilePath + " as " + extName));
+                                
+                                availableExtensions[extName] = absFilePath;
+                            }
+                        } catch (const std::invalid_argument& e) {
+                            // ignore and don't add to list
                         }
-                    } catch (const std::invalid_argument& e) {
-                        // ignore and don't add to list
                     }
+                }
+            } catch (const std::invalid_argument e) {
+                std::string msg = e.what();
+
+                if(msg.substr(0,18) == "Unable to open dir") {
+                    // ignore - was thrown because given path couldn't be resovled
+                } else {
+                    // was another cause => rethrow
+                    throw;
                 }
             }
         }
-    }  
+    }
 }

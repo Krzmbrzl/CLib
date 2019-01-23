@@ -4,12 +4,16 @@
 #include <sstream>
 #include <vector>
 #include <iterator>
+#include <fstream>
 
 #ifdef WINDOWS
     #include <windows.h>
+    #include <direct.h>
+    #define getcwd _getcwd
 #else
     #include <sys/types.h>
     #include <dirent.h>
+    #include <unistd.h>
 #endif
 
 namespace CLib {
@@ -225,5 +229,94 @@ namespace CLib {
 
              return fileNames;
          }
+
+        /**
+         * Gets the current working directory of this process
+         * @param bufSize The maximum size of the CWD-buffer
+         * 
+         * @return The respective CWD or an empty string if something went wrong
+         */
+        std::string getCWD(int bufSize) {
+            char buffer[bufSize];
+            char *answer = getcwd(buffer, bufSize);
+            std::string cwd;
+            if (answer) {
+                cwd = answer;
+            } else {
+                // CWD could't be determined -> return empty string
+            }
+
+            return cwd;
+        }
+
+        /**
+         * Gets the directory in which the executable of this process is located
+         * @param bufSize (otpional) The size of the path-buffer to use
+         * 
+         * @return The path to the respective directory or an empty string if something went wrong
+         */
+        std::string getExecutableDirectory(int bufSize) {
+            std::string path;
+            #ifdef WINDOWS
+                #error getExecutableDirectory not yet implemented for Windows!
+            #else
+                char buffer[bufSize];
+
+                int size = readlink("/proc/self/exe", buffer, bufSize);
+
+                if(size <= 0) {
+                    return std::string();
+                }
+                
+                for(int i=0; i<size; i++) {
+                    path += buffer[i];
+                }
+
+                // remove executable name but leave trailing FILE_SEP
+                int index = path.find_last_of(FILE_SEP);
+                if(index > 0) {
+                    path = path.substr(0,index + 1);
+                }
+
+                return path;
+            #endif
+        }
+
+        /**
+         * Gets all segments of the command line that has been used to call this process
+         * 
+         * @return A std::vector<std::string> containing the respective segments or an empty one of something went wrong
+         */
+        std::vector<std::string> getCommandLineSegments() {
+            #ifdef WINDOWS
+                #error getCommandLineSegments not yet implemented for windows!
+                std::string commandLine = ::GetCommandLine();
+
+                // TODO: split to array
+            #else
+                long pid = ::getpid();
+
+                std::ifstream inFile;
+                try {
+                    inFile.open(std::string("/proc/") + std::to_string(pid) + "/cmdline");
+
+                    if(inFile.fail()) {
+                        throw std::exception();
+                    }
+                } catch (const std::exception& e) {
+                    // failed => return empty list
+                    return std::vector<std::string>();
+                }
+
+                std::stringstream sstr;
+                sstr << inFile.rdbuf();
+
+                std::string commandLine = sstr.str();
+
+                std::vector<std::string> commandLineArgs = CLib::Utils::split(commandLine, '\0');
+
+                return commandLineArgs;
+            #endif
+        }
     }
 }
