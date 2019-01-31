@@ -59,13 +59,15 @@ private _codeStr = "private ['_oldValue', '_currentValue'];";
     ["currentVisionMode", {currentVisionMode CLib_Player}],
     ["playerInventory", {CLib_Player call CFUNC(getAllGear)}],
     ["visibleMap", {visibleMap}],
+    ["visibleGPS", {visibleGPS}],
     ["playerSide", {playerSide}],
     ["cursorTarget", {cursorTarget}],
     ["cursorObject", {cursorObject}],
     ["groupUnits", {units CLib_Player}],
     ["assignedTeam", {assignedTeam CLib_Player}],
     ["cameraView", {cameraView}],
-    ["inCurator", {isNull curatorCamera}]
+    ["inCurator", {isNull curatorCamera}],
+    ["inEGSpectator", {isNil "BIS_EGSpectator_initialized"}]
 ];
 
 [compile _codeStr, 0] call CFUNC(addPerFrameHandler);
